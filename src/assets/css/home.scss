@@ -1,0 +1,50 @@
+---
+---
+@import "vars.scss";
+
+.info-text {
+  @include respond-to("small") {
+    width: 50%;
+    display: inline-block;
+    position: relative;
+  }
+  li {
+    margin-bottom: 1em;
+  }
+}
+
+.info-me {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include respond-to(small) {
+    width: 50%;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    @include respond-to(small) {
+      position: absolute;
+      bottom: 0;
+      height: auto;
+      width: auto;
+      max-height: calc(75%);
+      max-width: 75%;
+    }
+  }
+}
+
+.bottom {
+  // 5em body margin, 1em .top padding, 3em title font size, 1px border bottom I guess
+  // Then 0.5 pixels of magic
+  @include respond-to("small") {
+    display: flex;
+    height: calc(100vh - 9em - 1.5px);
+  }
+}

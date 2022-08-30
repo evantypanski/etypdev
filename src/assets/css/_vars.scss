@@ -1,0 +1,50 @@
+$font-stack: 'Ubuntu', sans-serif;
+$title-font-stack: Serif;
+$monospace-font-stack: "Ubuntu Mono",monospace;
+$subtitle-font-stack: Serif;
+
+$text-color: #353535;
+$light-text: #696969;
+$link-color: #6060F0;
+$link-color-hover: #4040C0;
+$accent-color: #d9475a;
+$dark-red: #802e3a;
+$less-black: #575757;
+$black: #353535;
+$almost-black: #111111;
+$off-white: #eaeaea;
+$offer-white: #aaaaaa;
+$offerer-white: #dadada;
+
+$slate: #a5a5a5;
+
+$small-screen: 767px;
+$medium-screen: 992px;
+$large-screen: 1200px;
+$very-large-screen: 1824px;
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "small" {
+    @media (min-width: $small-screen) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint == "medium" {
+    @media (min-width: $medium-screen) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint == "large" {
+    @media (min-width: $large-screen) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint == "very-large" {
+    @media (min-width: $very-large-screen) {
+      @content;
+    }
+  }
+}
