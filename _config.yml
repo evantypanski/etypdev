@@ -51,6 +51,7 @@ defaults:
           image: true
 
 source: src
+encoding: UTF-8
 
 
 # Exclude from processing.
