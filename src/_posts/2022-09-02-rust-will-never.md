@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Rust will `never` do that!
 date: 2022-09-02
 permalink: /posts/rust-will-never/

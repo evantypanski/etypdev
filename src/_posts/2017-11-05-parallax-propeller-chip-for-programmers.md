@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Parallax Propeller Chip for Programmers
 date: 2017-11-05
 permalink: /posts/parallax-propeller-chip-for-programers/
@@ -29,7 +29,7 @@ Should you want to follow along, the Propeller C IDE, named SimpleIDE, can be in
 
 The major difference between C and Spin is that C abstracts much of the hardware interaction.  For example, instead of directly accessing the `dira` register to set a pin's direction, one sets the direction of a pin with a call to the function `set_direction(int pin, int direction)`.  For example, `dira[0]~~`, which sets pin 0 to output (1), is equivalent to `set_direction(0, 1)` in C.  
 
-``` C
+``` c
 // set_direction function
 
 void set_direction(int pin, int direction)
@@ -54,7 +54,7 @@ Finally, reading inputs can be done with the `input(int pin)` function.
 
 With the fundamental knowledge of how registers can manipulate pins, let's look at a simple example of a stoplight simulation, assuming green is on pin 0, yellow on pin 1, and red on pin 2.
 
-``` C
+``` c
 #include "simpletools.h"        // Simpletools contains a lot of useful functions
 
 void main() {
@@ -85,7 +85,7 @@ The Propeller chip is unique in one primary way: it has eight parallel processor
 
 Furthermore, it's incredibly simple to program.  Here's an example from the workshop I gave:
 
-``` C
+``` c
 #include "simpletools.h"        // Simpletools contains a lot of useful functions
 
 void blinkLED1();               // Forward declaration 

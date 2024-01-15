@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Writing a Simple Programming Language from Scratch - Part 1
 date: 2019-07-07
 permalink: /posts/writing-a-simple-programming-language-p1/
@@ -45,7 +45,7 @@ Consider the following completely made up language that's basically just a calcu
   5.0 / 1.9;
   6 * 2;
 ```
-  
+
 
 The computer doesn't need all of that. Spaces are just for our petty minds. And new lines? No one needs those. The computer turns this code that you see into a stream of tokens that it can use instead of the source file. Basically, it knows that `3` is an integer, `3.2` is a float, and `+` is something that operates on those two values. That's all the computer *really* needs to get by. It's the **lexical analyzer**'s job to provide these tokens instead of a source program.
 

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Writing a Simple Programming Language from Scratch - Part 3
 date: 2021-12-30
 permalink: /posts/writing-a-simple-programming-language-p3/
@@ -87,7 +87,7 @@ mod->print(llvm::outs(), nullptr);
 
 If you run what we have so far (which is just a function with `5 + -6` in it) you get the following LLVM:
 
-``` llvm
+```
 ; ModuleID = 'ECTLang module'
 source_filename = "ECTLang module"
 
@@ -206,7 +206,7 @@ $ ./testllvm.out
 
 Running the output, we get the following LLVM:
 
-``` llvm
+```
 ; ModuleID = 'ECTLang module'
 source_filename = "ECTLang module"
 

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Writing a Simple Programming Language from Scratch - Part 2
 date: 2021-05-03
 permalink: /posts/writing-a-simple-programming-language-p2/

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: On Alternative Keyboard Layouts
 date: 2017-04-03
 permalink: /posts/on-alternative-keyboard-layouts/

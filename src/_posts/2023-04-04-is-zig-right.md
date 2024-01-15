@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Zig is for me - is it for you?
 date: 2023-04-04
 permalink: /posts/is-zig-right/

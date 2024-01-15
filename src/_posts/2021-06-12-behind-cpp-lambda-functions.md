@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Behind C++ Lambda Functions
 date: 2021-06-12
 permalink: /posts/behind-cpp-lambda-functions/

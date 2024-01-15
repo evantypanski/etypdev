@@ -29,5 +29,42 @@
     <link rel="stylesheet" href="/assets/css/application.css">
   </head>
 
-  {{ content }}
+  <body>
+  <div class="sidebar">
+    <nav>
+      <h1> <a href="/">Evan Typanski</a></h1>
+    </nav>
+    <ul class="profiles prompt-out">
+      <li> Github:
+        <a href="https://github.com/evantypanski" target="_blank">
+          evantypanski
+        </a>
+      </li>
+      <li> Email:
+        <a href="mailto:evantypanski@gmail.com">
+        evantypanski@gmail.com
+        </a>
+      </li>
+      <!--
+      <li> Linkedin:
+        <a href="https://www.linkedin.com/in/evan-typanski/" target="_blank">
+          evan-typanski
+        </a>
+      </li>
+      <li> Posts (mirror):
+        <a href="https://dev.to/evantypanski">
+        dev.to
+        </a>
+      </li>
+      !-->
+    </ul>
+  </div>
+  <div class="content">
+    {% if page.title %}
+    <h1 class="title"> {{ page.title }} </h1>
+    <hr class="titlebar">
+    {% endif %}
+    {{ content }}
+  </div>
+  </body>
 </html>

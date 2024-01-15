@@ -5,86 +5,62 @@
 @import "vars.scss";
 
 body {
-  width: 100%;
-  margin: 3em 0 0 0;
-  @include respond-to("small") {
-    width: 70%;
-    margin: 5em 15% 0 15%;
-    height: calc(100vh - 5em);
-  }
-  padding: 0;
   font-family: $font-stack;
   font-size: 1em;
   background: $off-white;
+  margin: 0;
+  padding: 0;
 }
 
-.top {
-  border-bottom: 1px solid $accent-color;
-  padding: 0 0 1em 0;
-  @include respond-to("small") {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-  }
-  .title {
-    width: 75%;
-    margin: 0 1em;
+.sidebar {
+  width: 20em;
+  position: fixed;
+  height: 100%;
+  border-right: 2px solid $accent-color;
+  padding-left: 1.5em;
+}
+
+nav {
+  padding: 1em 0 0 0;
+  font-size: 1.3em;
+  width: auto;
+
+  a {
+    margin: 0;
     padding: 0;
-    font-size: 3em;
-  }
-  nav {
-    padding: 1em 0 0 0;
-    font-size: 1.3em;
-    @include respond-to("small") {
-      padding: 0;
-      float: right;
-      height: 100%;
-      width: 25%;
-      position: absolute;
-      bottom: 1em;
-      right: 1em;
+    text-decoration: none;
+    &:link, &:visited {
+      color: $text-color;
     }
-    ul {
-      @include respond-to("small") {
-        position: absolute;
-        display: flex;
-        justify-content: right;
-        width: 100%;
-      }
-      bottom: 0;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      li {
-        padding: 0 2em;
-      }
+    &:hover {
+        color: $light-text;
     }
-    a {
-      margin: 0;
-      padding: 0;
-      text-decoration: none;
-      &:link, &:visited {
-        color: $text-color;
-      }
-      &:hover {
-          color: $light-text;
-      }
 
-      &:after {
-        content: '';
-        display: block;
-        height: 2px;
-        width: 0;
-        background: transparent;
-        transition: width .5s ease, background-color .5s ease;
-      }
+    &:after {
+      content: '';
+      display: block;
+      height: 2px;
+      width: 0;
+      background: transparent;
+      transition: width .5s ease, background-color .5s ease;
+    }
 
-      &:hover:after {
-        width: 100%;
-        background: $accent-color;
-      }
+    &:hover:after {
+      width: 100%;
+      background: $accent-color;
     }
   }
+}
+
+.content {
+  flex: 1;
+  margin-left: 20em;
+  padding: 0;
+  max-width: 60%;
+}
+
+.title {
+  font-size: 2.5em;
 }
 
 .prompt {
@@ -115,8 +91,8 @@ h3 {
 }
 
 li, p {
-  font-size: 1.3rem;
-  line-height: 2em;
+  font-size: 1rem;
+  line-height: 1.5em;
 }
 
 .typed {
@@ -132,8 +108,43 @@ li, p {
   }
 }
 
+.posts-list {
+  list-style: none;
+  font-family: $monospace-font-stack;
+  padding: 0;
+
+  li:before {
+    content: '>';
+    margin: 0;
+    @include respond-to("small") {
+      margin: 0 1em;
+    }
+  }
+  li {
+    margin: 1em 0;
+  }
+}
+
 @keyframes blink {
   50% {
     border-color: transparent
   }
+}
+
+pre {
+  background: $offer-white;
+  border-radius: 1em;
+  padding: 1em;
+  font-size: 1.2em;
+  overflow: auto;
+}
+
+blockquote {
+  background: $offer-white;
+  border-radius: 1em;
+  padding: 0.5em;
+}
+
+.titlebar {
+  color: $accent-color;
 }

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: A Rails Mistake
 date: 2017-08-29
 permalink: /posts/a-rails-mistake/

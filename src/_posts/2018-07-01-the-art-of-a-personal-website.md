@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: The Art of a Personal Website
 date: 2018-07-14
 permalink: /posts/the-art-of-a-personal-website/

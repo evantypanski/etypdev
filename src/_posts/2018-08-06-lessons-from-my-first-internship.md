@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: Lessons from My First Internship
 date: 2018-08-13
 permalink: /posts/lessons-from-my-first-internship/

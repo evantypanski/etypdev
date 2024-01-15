@@ -30,12 +30,14 @@ github_username:  evantypanski
 markdown: kramdown
 kramdown:
     input: GFM
-    syntax_highlighter: rouge
+    syntax_highlighter: tree-sitter
+
 theme: minima
 include: ['_pages']
 plugins:
   - jekyll-feed
   - jekyll-assets
+  - kramdown/syntax_tree_sitter
 
 collections:
     portfolio:

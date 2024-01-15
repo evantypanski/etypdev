@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: A Look At My Notes
 date: 2018-04-26
 permalink: /posts/a-look-at-my-notes/

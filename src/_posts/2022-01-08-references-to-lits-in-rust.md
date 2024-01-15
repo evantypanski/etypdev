@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: References to Literals in Rust?!
 date: 2022-01-08
 permalink: /posts/references-to-literals-in-rust/

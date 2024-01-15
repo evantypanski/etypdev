@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: The Art of Transpilers - From One Programming Language to Another
 date: 2022-06-30
 permalink: /posts/art-of-transpilers/
@@ -67,7 +67,7 @@ In fact, as stated on the CoffeeScript site, NodeJS can natively run CoffeeScrip
 
 Let's try an example:
 
-``` num
+```
 // test.nim
 echo "Hello World!"
 ```

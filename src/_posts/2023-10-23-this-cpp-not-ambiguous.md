@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: barebones
 title: This C++ code doesn't look ambiguous to me
 date: 2023-10-23
 permalink: /posts/this-cpp-is-ambiguous/
