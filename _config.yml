@@ -31,6 +31,8 @@ markdown: kramdown
 kramdown:
     input: GFM
     syntax_highlighter: tree-sitter
+    syntax_highlighter_opts:
+        css_classes: true
 
 theme: minima
 include: ['_pages']

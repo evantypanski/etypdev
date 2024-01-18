@@ -80,11 +80,11 @@ nav {
 }
 
 .prompt {
+  font-family: $monospace-font-stack;
   color: $complement-color2;
 }
 
 h1 {
-  font-family: $monospace-font-stack;
   font-size: 2em;
 }
 
@@ -137,6 +137,9 @@ li, p {
   }
   li {
     margin: 1em 0;
+    a {
+      font-family: $font-stack;
+    }
   }
 }
 
