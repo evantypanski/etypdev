@@ -15,11 +15,13 @@ body {
 
 .sidebar {
   margin: 0 1em;
-  width: 20em;
-  position: fixed;
-  height: 100%;
-  border-right: 2px solid $complement-color;
-  padding-left: 1.5em;
+  @include respond-to("small") {
+    width: 20em;
+    position: fixed;
+    height: 100%;
+    border-right: 2px solid $complement-color;
+    padding-left: 1.5em;
+  }
 }
 
 a {
@@ -71,8 +73,12 @@ nav {
 }
 
 .content {
-  margin-left: 21em;
-  max-width: 60%;
+  padding: 1em;
+  @include respond-to("small") {
+    margin-left: 21em;
+    padding: 1em 3em;
+    max-width: 60%;
+  }
 }
 
 .title {
@@ -122,10 +128,6 @@ li, p {
   color: $text-color;
 }
 
-.content {
-  padding: 3em;
-}
-
 .posts-list {
   list-style: none;
   font-family: $monospace-font-stack;
@@ -160,8 +162,8 @@ blockquote {
 }
 
 img {
-  max-width: 100%;
-  background: $slate;
-  padding: 1em;
+  background: $almost-black;
+  padding: 0.5em;
   border-radius: 1em;
+  max-width: 90%;
 }

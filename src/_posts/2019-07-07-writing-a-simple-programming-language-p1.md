@@ -17,7 +17,7 @@ Programming languages are generally high-level. That is to say, you're not looki
 
 Compilation is the process of turning an entire source file of the source language into a target language. For our purposes, we'll think about compiling down from your brand new, state of the art language, all the way down to runnable machine code.
 
-![Simple Compilation Diagram](/assets/img/posts/writing-simple-programming-language/01-compiler-basic.png "Simple Compilation Diagram")
+![Simple Compilation Diagram](/assets/img/posts/writing-simple-programming-language/01-compiler-basic-bg.png "Simple Compilation Diagram")
 
 My goal is to make the "magic" disappear
 
@@ -29,7 +29,7 @@ So, how do you go from easy-to-read source language to hard-to-understand target
 
 A compiler can be split up into phases in various ways, but there's one way that's most common. It makes only a small amount of sense the first time you see it, but here it goes:
 
-![Fake Phases of a Compiler](/assets/img/posts/writing-simple-programming-language/02-fake-phases-compiler.png "Fake Phases of a Compiler")
+![Fake Phases of a Compiler](/assets/img/posts/writing-simple-programming-language/02-fake-phases-compiler-bg.png "Fake Phases of a Compiler")
 
 
 Oops, I picked the wrong diagram, but this will do. Basically, you get the source file, you put it into a format that the computer wants (removing white space and stuff like that), change it into something the computer can move around well in, and then generate the code from that. There's more to it. That's for another time, or for your own research if your curiosity is killing you.
@@ -293,4 +293,4 @@ If you happen to want more info on anything covered here, I've linked some stuff
 
 Oh, by the way, if you didn't like my phases of a compiler, here's an actual diagram. I still left off the symbol table and error handler. Also note that a lot of diagrams are different from this, but this best demonstrates what we're concerned with.
 
-![Real Phases of a Compiler](/assets/img/posts/writing-simple-programming-language/03-real-phases-compiler.png "Real Phases of a Compiler")
+![Real Phases of a Compiler](/assets/img/posts/writing-simple-programming-language/03-real-phases-compiler-bg.png "Real Phases of a Compiler")
