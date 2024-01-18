@@ -7,6 +7,8 @@ permalink: /posts/this-cpp-is-ambiguous/
 
 Look at this C++ code:
 
+> test.cpp
+{:.filename}
 ``` cpp
 class B;
 class A { public: A (B&);};
@@ -23,6 +25,8 @@ int main() {
 
 Do you think this compiles? Well, probably not because I'm asking. So here's the error message from Clang 13:
 
+>
+{:.shell}
 ``` bash
 etyp:fun/ $ clang++ test.cpp
 test.cpp:10:3: error: call to 'f' is ambiguous

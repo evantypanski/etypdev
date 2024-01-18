@@ -7,6 +7,8 @@ permalink: /posts/references-to-literals-in-rust/
 
 One day messing around with Rust, I found that the following code is valid:
 
+>test.rs
+{:.filename}
 ``` rust
 fn main() {
     let x = &0;
@@ -15,6 +17,8 @@ fn main() {
 
 That's assigning a variable to a reference to the literal `0` - how?! Why?! This absolutely shocked me. Just try doing this in C++ and you'll see why:
 
+>
+{:.shell}
 ``` rust
 error: non-const lvalue reference to type 'int' cannot bind to a temporary of type 'int'
     int &r = 0;
@@ -38,6 +42,8 @@ Static: Something that is valid for the whole lifetime of the program.
 So we promote the rvalue to a static value in order to take a reference to it. Looking at the program earlier, we can see this in action in [Rust's playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=9fe3d6deffc976b8394163f6008b9093). We can see the MIR (one of the intermediate representations of Rust) is:
 
 
+>test.rs
+{:.filename}
 ``` rust
 fn main() -> () {
     let mut _0: ();                      // return place in scope 0 at src/main.rs:1:11: 1:11
@@ -85,6 +91,8 @@ I found this funny. Seems like they just thought "it's easy enough, could be use
 
 You can see this exact thing in action in Rust's source code! At the time of writing, you can see this [here](https://github.com/rust-lang/rust/blob/8b09ba6a5d5c644fe0f1c27c7f9c80b334241707/compiler/rustc_borrowck/src/nll.rs#L74):
 
+>
+{:.filename}
 ``` rust
     dump_mir(infcx.tcx, None, "renumber", &0, body, |_, _| Ok(()));
 ```

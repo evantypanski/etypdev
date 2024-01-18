@@ -31,6 +31,8 @@ I'm going to take this bit by bit, then dump the full code for our prototype at 
 
 First, LLVM programs will start with three main objects: `LLVMContext`, `Module`, and `IRBuilder`. Here's about how you'll instantiate each:
 
+> main.cpp
+{:.filename}
 ``` cpp
 // Context - Owns the types and constants we'll use.
 llvm::LLVMContext context;
@@ -49,6 +51,8 @@ The module stores the information that we make. So, if we make a function, that 
 
 The IR builder is just an object we use to make creating instructions for basic blocks easier. To create a basic block...
 
+> main.cpp
+{:.filename}
 ``` cpp
 // Function returns void.
 llvm::FunctionType *functionReturnType =
@@ -72,6 +76,8 @@ Basic blocks are hugely important it control flow analysis and compilers. Rust e
 
 Now, we have a function that contains a basic block. Let's write our first instructions!!
 
+> main.cpp
+{:.filename}
 ``` cpp
 llvm::Constant *x = llvm::ConstantInt::getSigned(llvm::Type::getInt32Ty(context), 5);
 llvm::Constant *y = llvm::ConstantInt::getSigned(llvm::Type::getInt32Ty(context), -6);
@@ -80,6 +86,8 @@ llvm::Value *add = builder.CreateAdd(x, y, "addtest");
 
 And that's how you'd make a simple add instruction. Easy, right? The first argument get `getSigned` shows how the context is used to get types. To finally see your output LLVM, you can add a return statement and output the program to standard out:
 
+> main.cpp
+{:.filename}
 ``` cpp
 builder.CreateRetVoid();
 mod->print(llvm::outs(), nullptr);
@@ -87,6 +95,8 @@ mod->print(llvm::outs(), nullptr);
 
 If you run what we have so far (which is just a function with `5 + -6` in it) you get the following LLVM:
 
+>
+{:.filename}
 ```
 ; ModuleID = 'ECTLang module'
 source_filename = "ECTLang module"
@@ -101,12 +111,16 @@ Our main function doesn't have anything resembling what we wrote in it! That's b
 
 First, we'll make the function prototype. Here's what `printf` looks like in C:
 
+>
+{:.filename}
 ``` cpp
 int printf(const char *format, ...)
 ```
 
 And here's how we can put that in our LLVM program:
 
+> main.cpp
+{:.filename}
 ``` cpp
     std::vector<llvm::Type *> params;
     params.push_back(llvm::Type::getInt8PtrTy(context));
@@ -122,12 +136,16 @@ We created the actual prototype in our module with the function call `llvm::Func
 
 Now for the fun part, we need to output our add call to `printf`. You can construct this just like you would in C, just via code. We want to make the following:
 
+>
+{:.filename}
 ``` cpp
 printf("%d\n", 5 + -6);
 ```
 
 And here's how we construct that function call in LLVM:
 
+> main.cpp
+{:.filename}
 ``` cpp
     std::vector<llvm::Value *> printArgs;
     llvm::Value *formatStr = builder.CreateGlobalStringPtr("%d\n");
@@ -140,8 +158,9 @@ Pretty straightforward! We create an argument for the format string, an argument
 
 Finally, just add a return statement and output the program the standard output. Here's the full program, for reference:
 
+> main.cpp
+{:.filename}
 ``` cpp
-// main.cpp
 #include "llvm/IR/Module.h"
 #include "llvm/IR/IRBuilder.h"
 
@@ -199,6 +218,8 @@ int main() {
 
 Now to compile this program, use your favorite compiler with some extra LLVM tooling help. When you install LLVM, you also get a tool `llvm-config` which will help with compiler and linker options for your LLVM install. You can use it with `GCC` like so (mine is called `llvm-config-12` for the LLVM version I installed):
 
+>
+{:.shell}
 ``` bash
 $ g++ main.cpp $(llvm-config-12 --ldflags --libs --cxxflags) -o testllvm.out
 $ ./testllvm.out
@@ -206,6 +227,8 @@ $ ./testllvm.out
 
 Running the output, we get the following LLVM:
 
+>
+{:.filename}
 ```
 ; ModuleID = 'ECTLang module'
 source_filename = "ECTLang module"
@@ -225,6 +248,8 @@ Being able to read that LLVM isn't important, but we can see the structure seems
 
 We can compile this LLVM directly with Clang into something we can run! Put that code in a file (I'll call it `test.ll`) and compile it:
 
+>
+{:.shell}
 ``` bash
 $ clang++ test.ll -o test.out
 $ ./test.out
@@ -234,6 +259,8 @@ We see `-1` is printed, which happens to be the result of `5 + -6`!
 
 Since our language has floats, let's also make sure we can do that. If we want to add two floats, it's actually pretty easy. We need to change `x` and `y` to be `double` types:
 
+> main.cpp
+{:.filename}
 ``` cpp
     llvm::Constant *x = llvm::ConstantFP::get(llvm::Type::getDoubleTy(context), 5.5);
     llvm::Constant *y = llvm::ConstantFP::get(llvm::Type::getDoubleTy(context), -6.5);
@@ -241,18 +268,24 @@ Since our language has floats, let's also make sure we can do that. If we want t
 
 Switch our `add` call to be the floating variant:
 
+> main.cpp
+{:.filename}
 ``` cpp
     llvm::Value *add = builder.CreateFAdd(x, y, "addtest");
 ```
 
 Then change our format string to accept `%f` to format it at as a float:
 
+> main.cpp
+{:.filename}
 ``` cpp
     llvm::Value *formatStr = builder.CreateGlobalStringPtr("%f\n");
 ```
 
 And if we run/compile that like before, we get a similar result, but floaty:
 
+>
+{:.shell}
 ```
 -1.000000
 ```
@@ -267,8 +300,9 @@ I'm going to skip setup such as initializing the visitor with the required LLVM 
 
 Our visitor we made in the last part doesn't have a return type! Because of this, the more obvious pattern of returning the `llvm::Value` at each step isn't feasible. But, we can make each visit make a "promise" to fill a variable. Then, we can just treat that variable as the return value. Here's an example for the integer literal type:
 
+> llvmvisitor.cpp
+{:.filename}
 ``` cpp
-// llvmvisitor.cpp
 void LLVMVisitor::visit(IntegerNode *node) {
     // Return the LLVM int value.
     ret = llvm::ConstantInt::getSigned(llvm::Type::getInt32Ty(context), node->getValue());
@@ -277,8 +311,9 @@ void LLVMVisitor::visit(IntegerNode *node) {
 
 Then, if we want to use that value in the visit function for plus:
 
+> llvmvisitor.cpp
+{:.filename}
 ``` cpp
-// llvmvisitor.cpp
 void LLVMVisitor::visit(PlusNode *node) {
     // Get the return value from the left side.
     node->getLeft()->accept(*this);
@@ -299,8 +334,9 @@ And with that we can have add working! Just do that for the rest of the operatio
 
 Floats are weird. We can't add an int and a float natively in LLVM. So, instead, we're going to promote everything as soon as we see a float. The logic around this can be a bit more complicated, but we'll try to keep it simple for demonstration purposes. So, if we see a float, we need to promote both sides to a float, then use the float method associated with the operation (eg `builder.CreateFAdd`). This is what that may look like for add:
 
+> llvmvisitor.cpp
+{:.filename}
 ``` cpp
-// llvmvisitor.cpp
     if (floatInst) {
         // Promote RHS or LHS if we're dealing with floats and they're not a float.
         // (except we use doubles)
@@ -326,6 +362,8 @@ With that, we have a complete visitor! I put maybe a quarter of the work in this
 
 Here's how you can compile it and run some program you make `source.ect`:
 
+>
+{:.shell}
 ``` bash
 $ bison parser.ypp
 $ flex -o scanner.c scanner.lex

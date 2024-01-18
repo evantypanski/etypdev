@@ -18,8 +18,9 @@ The [visitor software pattern](https://en.wikipedia.org/wiki/Visitor_pattern) is
 
 Let's make a basic visitor!
 
+> nodes.cpp
+{:.filename}
 ``` cpp
-// nodes.cpp
 #include <iostream>
 
 class Node {
@@ -59,6 +60,8 @@ int main() {
 
 Then here's the output when this program is called:
 
+>
+{:.shell}
 ``` bash
 evan:ectlang/ $ g++ nodes.cpp
 evan:ectlang/ $ ./a.out
@@ -72,8 +75,9 @@ I won't bore by going through all of the nodes, it's mostly just busy work to se
 
 So now we can add any number of nodes that we want. I'll show how we could do some recursion in this using the plus node, then hopefully extrapolating out will be a bit more simple.
 
+> nodes.cpp
+{:.filename}
 ``` cpp
-// nodes.cpp
 /* Keeping all IntegerNode references in code */
 
 class PlusNode: public Node {
@@ -113,6 +117,8 @@ int main() {
 
 This will recursively use your new `PlusNode` and output the added numbers! Here's the output:
 
+>
+{:.shell}
 ``` bash
 evan:ectlang/ $ g++ nodes.cpp
 evan:ectlang/ $ ./a.out
@@ -129,9 +135,9 @@ We can also have other kinds of visitors! One class `Visitor` could be inherited
 ### Lexer and Parser Updates
 Now let's update our parser from part 1 to return nodes instead of doing the calculations itself. We'll also rename the file the `parser.ypp` to generate C++. Here is what we'll use for our C declarations:
 
+> parser.ypp
+{:.filename}
 ``` cpp
-// parser.ypp
-
 %{
   #include <assert>
   #include <iostream>
@@ -163,10 +169,9 @@ There are some basic changes here, but two main ones for understanding how this 
 
 Here are the Bison declarations that we'll use. We changed the union to include nodes that we want to be exchanged between grammar rules, and put the return values in their type definitions.
 
-
+> parser.ypp
+{:.filename}
 ``` cpp
-// parser.ypp
-
 %union{
   int intVal;
   float floatVal;
@@ -191,9 +196,9 @@ This is similar to what we did in part 1 - just including the nodes!
 
 Finally, here are the grammar rules:
 
+> parser.ypp
+{:.filename}
 ``` cpp
-// parser.ypp
-
 program: { program = new ProgramNode(yylineno); }
     | program statement	{ assert(program); program->addStatement($2); }
     ;
@@ -219,9 +224,9 @@ Finally, `program` has a bit of interesting logic. If we get to the first, empty
 
 Our lexer didn't change much, just adding a couple options, but I'll put it here anyway:
 
+> scanner.lex
+{:.filename}
 ``` cpp
-// scanner.lex
-
 %{
 #include "parser.tab.hpp"
   extern "C" int yylex();
@@ -242,9 +247,9 @@ Our lexer didn't change much, just adding a couple options, but I'll put it here
 
 Now that we have that, let's make a file that runs this! This was moved from the bottom of the parser from part 1.
 
+> main.cpp
+{:.filename}
 ``` cpp
-// main.cpp
-
 #include "nodes/programnode.h"
 #include "nodes/visitor.h"
 
@@ -265,6 +270,8 @@ All this does is it calls some method `yyparse()` which we get as an extern func
 
 Let's run it on a program with one line - `3 + 3.2;`
 
+>
+{:.shell}
 ``` bash
 evan:ectlang/ $ flex -o scanner.c scanner.lex
 evan:ectlang/ $ bison parser.ypp
@@ -285,9 +292,9 @@ Another consequence of writing C++ code is we're going to make it human readable
 
 How will we do this? We'll make a new visitor that generates `.cpp` files! Here's the implementation file for that (let's ignore the header files):
 
+> cppvisitor.cpp
+{:.filename}
 ``` cpp
-// cppvisitor.cpp
-
 CPPVisitor::CPPVisitor(const char *filename) {
     // Open the file we are going to write to.
     file.open(filename, std::fstream::out);
@@ -355,6 +362,8 @@ What's amazing about this isn't that we wrote a program that (kind of) writes C+
 
 Let's run on this file (called `source.ect`):
 
+>
+{:.shell}
 ``` R
 3 + 3.2;
 5 + 2 * 3 - 8;
@@ -363,6 +372,8 @@ Let's run on this file (called `source.ect`):
 
 One last run!
 
+>
+{:.shell}
 ``` bash
 evan:ectlang/ $ flex -o scanner.c scanner.lex
 evan:ectlang/ $ bison parser.ypp
@@ -372,6 +383,8 @@ evan:ectlang/ $ ./a.out < source.ect
 
 From that, we get the following file created (in `test.cpp`):
 
+> test.cpp
+{:.filename}
 ``` cpp
 #include <iostream>
 int main() {
@@ -383,6 +396,8 @@ int main() {
 
 And if we run that...
 
+>
+{:.shell}
 ``` bash
 evan:ectlang/ $ g++ test.cpp -o ect-program
 evan:ectlang/ $ ./ect-program

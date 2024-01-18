@@ -7,6 +7,8 @@ permalink: /posts/behind-cpp-lambda-functions/
 
 Lambda functions are not just pointers to a function. This is obvious when you think about it: if they're anonymous, and declared completely differently, something must be different. But, we can assign a pointer to a function to a lambda easily:
 
+>
+{:.filename}
 ``` cpp
 void (*ptr)() = [](){};
 ```
@@ -21,6 +23,8 @@ When you define a lambda function, you're really making a C++ class. This class 
 
 Here's a simple C++ program to show that:
 
+> lambda.cpp
+{:.filename}
 ``` cpp
 int main() {
   [](){}();
@@ -29,6 +33,8 @@ int main() {
 
 That line in main is just defining a lambda with no captures (`[]`), that takes no argument (`()`), with no body (`{}`), then calling it (`()`). We can actually look at what Clang develops as the AST with:
 
+>
+{:.shell}
 ``` bash
 clang++ -Xclang -ast-dump lambda.cpp
 ```
@@ -39,6 +45,8 @@ We'll walk through the lambda function piece by piece.
 
 The AST is just the internal representation of the code that the compiler looks at. Let's look at the most obvious part of the Lambda shenanigans (note, obvious is relative):
 
+>
+{:.shell}
 ``` bash
 `-CXXOperatorCallExpr 0x17238c8 <col:3, col:10> 'void':'void'
   |-ImplicitCastExpr 0x1723858 <col:9, col:10> 'void (*)() const' <FunctionToPointerDecay>
@@ -50,6 +58,8 @@ The AST is just the internal representation of the code that the compiler looks 
 
 Alright. What we have here is a call expression - that's the last `()` in our lambda. Then, we have some gibberish that is Clang doing internal conversions in order to make the types right. Finally, we have our trusted `LambdaExpr` - our lambda! Let's look at what's in that.
 
+>
+{:.shell}
 ``` bash
 `-LambdaExpr 0x17236a0 <col:3, col:8> '(lambda at lambda.cpp:2:3)'
   |-CXXRecordDecl 0x1723050 <col:3> col:3 implicit class definition
@@ -74,6 +84,8 @@ We can even see that in Clang documentation. If we go to the [documentation for 
 
 We'll skip the `DefinitionData` part of the class, since that's just defining some default constructors and whatnot. Let's look at the `operator()` definition:
 
+>
+{:.shell}
 ``` bash
 | |-CXXMethodDecl 0x1723190 <col:6, col:8> col:3 used operator() 'void () const' inline
 | | `-CompoundStmt 0x1723240 <col:7, col:8>
@@ -81,12 +93,16 @@ We'll skip the `DefinitionData` part of the class, since that's just defining so
 
 Here we have our call operator. It's empty, and returns void, so it's not like we expect to see much. But, let's make it have something. If we change our lambda function to:
 
+>
+{:.filename}
 ``` cpp
 [](){int i = 1;}();
 ```
 
 We now have something in our function body, so we expect to see it in the call operator:
 
+>
+{:.shell}
 ``` bash
 | |-CXXMethodDecl 0x171f190 <col:6, col:18> col:3 used operator() 'void () const' inline
 | | `-CompoundStmt 0x171f2f8 <col:7, col:18>
@@ -97,12 +113,16 @@ We now have something in our function body, so we expect to see it in the call o
 
 And there we have it, our call operator has a body, just nested in the AST. How about a return type?
 
+>
+{:.filename}
 ``` cpp
 [](){return 1;}();
 ```
 
 In the AST:
 
+>
+{:.shell}
 ``` bash
 | |-CXXMethodDecl 0x1f88190 <col:6, col:17> col:3 used operator() 'int () const' inline
 | | `-CompoundStmt 0x1f883b8 <col:7, col:17>
@@ -114,12 +134,16 @@ As we can see, our `CXXMethodDecl` changed from `void () const` to `int () const
 
 Finally, how about adding a parameter?
 
+>
+{:.filename}
 ``` cpp
 [](int i){}(1);
 ```
 
 AST:
 
+>
+{:.shell}
 ``` bash
 | |-CXXMethodDecl 0xe84220 <col:11, col:13> col:3 used operator() 'void (int) const' inline
 | | |-ParmVarDecl 0xe83fc8 <col:6, col:10> col:10 i 'int'
@@ -130,6 +154,8 @@ We can see that the `CXXMethodDecl` is now `void (int) const` and we have a `Par
 
 But, lambdas also let you capture a variable. This means that if I have a variable `i` outside of the lambda, capture it, change it, then call the lambda, we should see that variable change. Let's try it out:
 
+> lambda.cpp
+{:.filename}
 ``` cpp
 #include <iostream>
 
@@ -145,12 +171,16 @@ int main() {
 
 And here's our output:
 
+>
+{:.shell}
 ``` bash
 i is: 42
 ```
 
 Awesome. How does this work in the AST? If we look at it, we actually have one key difference:
 
+>
+{:.shell}
 ``` bash
 | |-FieldDecl 0x18ec440 <col:5> col:5 implicit 'int &'
 ```
@@ -159,6 +189,8 @@ We have a field inside of our lambda's class now! It's a reference to an int, na
 
 Now, we don't take a parameter, we still return void, can we assign this to a C function pointer like we did at the beginning?
 
+> lambda.cpp
+{:.filename}
 ``` cpp
 int main() {
   int i;
@@ -168,6 +200,8 @@ int main() {
 
 The compiler errors!
 
+>
+{:.shell}
 ``` bash
 lambda.cpp:5:10: error: no viable conversion from '(lambda at lambda.cpp:5:19)' to 'void (*)()'
   void (*ptr)() = [&i](){};
@@ -176,6 +210,8 @@ lambda.cpp:5:10: error: no viable conversion from '(lambda at lambda.cpp:5:19)' 
 
 It's weird because we still have all the qualifications of that function pointer. But, if we look at the AST, we'll see something missing from the Lambda's class, particularly:
 
+>
+{:.shell}
 ``` bash
 | |-CXXConversionDecl 0x142f7b8 <col:19> col:19 implicit used operator void (*)() 'void (*() const noexcept)()' inline
 | | `-CompoundStmt 0x142fba0 <col:19>
@@ -205,6 +241,9 @@ If we dig around here, we find the function `BuildLambdaExpr`. Seems promising.
 From there, let's just look through the function.
 
 First we do some setup from previously gathered info:
+
+> SemaLambda.cpp
+{:.filename}
 ``` cpp
 CallOperator = LSI->CallOperator;
 Class = LSI->Lambda;
@@ -220,6 +259,8 @@ Then, we do some logic checking if captures are used and getting them in a good 
 
 Next, we can see why we don't get our conversion function:
 
+> SemaLambda.cpp
+{:.filename}
 ``` cpp
 if (Captures.empty() && CaptureDefault == LCD_None)
   addFunctionPointerConversions(*this, IntroducerRange, Class,
@@ -230,6 +271,8 @@ So, we only add the function pointer conversion if we have no captures and the c
 
 If you really want to dive into the weeds, the Clang devs also often comment the part of the standard they took from:
 
+> SemaLambda.cpp
+{:.filename}
 ``` cpp
 // C++11 [expr.prim.lambda]p6:
 //   The closure type for a lambda-expression with no lambda-capture

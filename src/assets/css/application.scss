@@ -2,11 +2,13 @@
 ---
 
 @import "vars.scss";
+@import "highlight.scss";
 
 body {
+  color: $text-color;
   font-family: $font-stack;
   font-size: 1em;
-  background: $off-white;
+  background: $background;
   margin: 0;
   padding: 0;
 }
@@ -16,16 +18,28 @@ body {
   width: 20em;
   position: fixed;
   height: 100%;
-  border-right: 2px solid $accent-color;
+  border-right: 2px solid $complement-color;
   padding-left: 1.5em;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 nav {
   padding-top: 1em;
   font-size: 1.3em;
   width: auto;
-  h1 {
+  h1, li {
     margin-right: 1em;
+  }
+
+  ul {
+    list-style: none;
   }
 
   a {
@@ -36,7 +50,12 @@ nav {
       color: $text-color;
     }
     &:hover {
+        text-decoration: none;
         color: $light-text;
+        &:after {
+          width: 100%;
+          background: $accent-color;
+        }
     }
 
     &:after {
@@ -48,10 +67,6 @@ nav {
       transition: width .5s ease, background-color .5s ease;
     }
 
-    &:hover:after {
-      width: 100%;
-      background: $accent-color;
-    }
   }
 }
 
@@ -65,7 +80,7 @@ nav {
 }
 
 .prompt {
-  color: $dark-red;
+  color: $complement-color2;
 }
 
 h1 {
@@ -75,7 +90,7 @@ h1 {
 
 h2 {
   font-size: 2em;
-  color: $accent-color;
+  color: $complement-color2;
   margin-top: 2em;
 
 }
@@ -86,7 +101,7 @@ h2 {
 
 h3 {
   font-size: 1.5em;
-  color: $dark-red;
+  color: $complement-color2;
   margin-top: 2em;
 }
 
@@ -95,6 +110,7 @@ h3 {
 }
 
 li, p {
+  color: $text-color;
   font-size: 1rem;
   line-height: 1.5em;
 }
@@ -130,20 +146,19 @@ li, p {
   }
 }
 
-pre {
-  background: $offer-white;
-  border-radius: 1em;
-  padding: 1em;
-  font-size: 1.2em;
-  overflow: auto;
-}
-
 blockquote {
-  background: $offer-white;
+  background: $slate;
   border-radius: 1em;
   padding: 0.5em;
 }
 
 .titlebar {
-  color: $accent-color;
+  color: $complement-color;
+}
+
+img {
+  max-width: 100%;
+  background: $slate;
+  padding: 1em;
+  border-radius: 1em;
 }

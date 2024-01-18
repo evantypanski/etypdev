@@ -11,6 +11,8 @@ The primary, glaring error that I made was to start using Rails.  I figured that
 
 Probably the most glaring issue is my decision to learn how to use a database, at least slightly.  I made models for posts and projects within my portfolio to be handled and served from the database, with a title, content, and more.  Thus, I needed a way to edit the database.  So, I used active admin to make an admin site, but for security reasons I wanted the admin site to be hidden unless I needed to make a post.  Code like this is the result:
 
+> routes.rb
+{:.filename}
 ```ruby
   get '/admin', to: 'application#page_not_found'
   get '/admin/login', to: 'application#page_not_found'

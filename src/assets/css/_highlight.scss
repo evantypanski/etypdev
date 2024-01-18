@@ -1,0 +1,99 @@
+$monospace-font-stack: "Ubuntu Mono",monospace;
+
+$black: #393b44;
+$red: #c94f6d;
+$green: #81b29a;
+$yellow: #dbc074;
+$blue: #719cd6;
+$magenta: #9d79d6;
+$cyan: #63cdcf;
+$white: #dfdfe0;
+$orange: #f4a261;
+$pink: #d67ad2;
+
+$comment: #738091;
+
+$bg0: #131a24;
+$bg1: #192330;
+$bg2: #212e3f;
+$bg3: #29394f;
+$bg4: #39506d;
+
+$fg0: #d6d6d7;
+$fg1: #cdcecf;
+$fg2: #aeafb0;
+$fg3: #71839b;
+
+$sel0: #2b3b51;
+$sel1: #3c5372;
+
+.ts-bracket     { color: $fg2; }
+.ts-delimiter   { color: $fg2; }
+.ts-builtin     { color: $red; }
+.ts-comment     { color: $comment; }
+.ts-conditional { color: $magenta; }
+.ts-constant    { color: $orange; }
+.ts-dep         { color: $fg3; }
+.ts-field       { color: $blue; }
+.ts-function    { color: $blue; }
+.ts-ident       { color: $cyan; }
+.ts-keyword     { color: $magenta; }
+.ts-number      { color: $orange; }
+.ts-parameter   { color: $orange; }
+.ts-operator    { color: $fg2; }
+.ts-preproc     { color: $pink; }
+.ts-regex       { color: $yellow; }
+.ts-statement   { color: $magenta; }
+.ts-string      { color: $green; }
+.ts-special     { color: $green; }
+.ts-type        { color: $yellow; }
+.ts-variable    { color: $white; }
+
+$filename-background: #492C54;
+$shell-background: #A68210;
+
+.filename {
+  font-family: $monospace-font-stack;
+  min-height: 1em;
+  background: $filename-background;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0;
+  padding-left: 1em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  p {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.shell {
+  font-family: $monospace-font-stack;
+  min-height: 1em;
+  background: $shell-background;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0;
+  padding-left: 1em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+pre {
+  margin-top: 0;
+  background: $black;
+  padding: 1em;
+  font-size: 1.2em;
+  overflow: auto;
+}
+

@@ -39,8 +39,9 @@ Oops, I picked the wrong diagram, but this will do. Basically, you get the sourc
 
 Consider the following completely made up language that's basically just a calculator with semicolons:
 
+> source.ect
+{:.filename}
 ``` r
-  // source.ect
   3 + 3.2;
   5.0 / 1.9;
   6 * 2;
@@ -51,6 +52,8 @@ The computer doesn't need all of that. Spaces are just for our petty minds. And 
 
 How it does that is really quite simple: give the lexer (a less pretentious sounding way of saying lexical analyzer) some stuff to expect, then tell it what to do when it sees that stuff. These are called *rules*. Here's an example:
 
+>
+{:.filename}
 ``` cpp
 int     cout << "I see an integer!" << endl;
 ```
@@ -61,8 +64,9 @@ By the way, we'll be using something called [FLEX](https://github.com/westes/fle
 
 To get an understanding of how we'll use flex, look at this example:
 
+> scanner.lex
+{:.filename}
 ``` cpp
-    // scanner.lex
     /* Definitions */
     %{
       #include <iostream>
@@ -99,6 +103,8 @@ Third part is the code, which is simply C or C++ source code that is run on exec
 
 Say you created these two files as `source.ect` and `scanner.lex`. We can create a C++ program using the `flex` command (given you have `flex` installed), then compile that down and input our source code to reach our awesome print statements. Let's put this into action!
 
+>
+{:.shell}
 ``` bash
 evan:ectlang/ $ flex scanner.lex
 evan:ectlang/ $ g++ lex.yy.c -lfl
@@ -131,8 +137,9 @@ Basically, grammars match non-terminal symbols to some combination of terminal a
 
 We'll be using a parser generator called [Bison](https://www.gnu.org/software/bison/). This time, I'll split the file up into sections for explanation purposes. First, the declarations:
 
+> parser.y
+{:.filename}
 ``` cpp
-    // parser.y
     %{
       #include <iostream>
       using namespace std;
@@ -168,8 +175,9 @@ Finally we get into precedence. We know PEMDAS, or whatever other acronym you ma
 
 Okay I probably bored you enough with declarations, here's the grammar rules:
 
+> parser.y
+{:.filename}
 ``` cpp
-    // parser.y
     %%
     program: /* empty */
         | program statement	{ cout << "Result: " << $2 << endl; }
@@ -197,8 +205,9 @@ Finally, once it gets back up to the `program` non-terminal, it will print the r
 
 Now let's write the code part. This is what will actually be run when we go through the parser:
 
+> parser.y
+{:.filename}
 ``` cpp
-    // parser.y
     %%
     int main(int argc, char **argv) {
       if (argc < 2) {
@@ -226,8 +235,9 @@ Now let's write the code part. This is what will actually be run when we go thro
 
 Okay, this is starting to get interesting. Our main function now reads from a file provided by the first argument instead of from standard in, and we added some error code. It's pretty self explanatory, and comments do a good job of explaining what's going on, so I'll leave it as an exercise to the reader to figure this out. All you need to know is now we're back to the lexer to provide the tokens to the parser! Here is our new lexer:
 
+> scanner.lex
+{:.filename}
 ``` cpp
-    // scanner.lex
     %{
       extern "C" int yylex();
       #include "parser.tab.c"  // Defines the tokens
@@ -248,6 +258,8 @@ Hey, that's actually smaller now! What we see is that instead of printing, we're
 
 Cool, lets run it then!
 
+>
+{:.shell}
 ``` bash
 evan:ectlang/ $ bison parser.y
 evan:ectlang/ $ flex scanner.lex

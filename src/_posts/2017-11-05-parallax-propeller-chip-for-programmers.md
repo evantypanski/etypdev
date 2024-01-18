@@ -29,6 +29,8 @@ Should you want to follow along, the Propeller C IDE, named SimpleIDE, can be in
 
 The major difference between C and Spin is that C abstracts much of the hardware interaction.  For example, instead of directly accessing the `dira` register to set a pin's direction, one sets the direction of a pin with a call to the function `set_direction(int pin, int direction)`.  For example, `dira[0]~~`, which sets pin 0 to output (1), is equivalent to `set_direction(0, 1)` in C.  
 
+>
+{:.filename}
 ``` c
 // set_direction function
 
@@ -54,6 +56,8 @@ Finally, reading inputs can be done with the `input(int pin)` function.
 
 With the fundamental knowledge of how registers can manipulate pins, let's look at a simple example of a stoplight simulation, assuming green is on pin 0, yellow on pin 1, and red on pin 2.
 
+> main.c
+{:.filename}
 ``` c
 #include "simpletools.h"        // Simpletools contains a lot of useful functions
 
@@ -85,10 +89,12 @@ The Propeller chip is unique in one primary way: it has eight parallel processor
 
 Furthermore, it's incredibly simple to program.  Here's an example from the workshop I gave:
 
+> main.c
+{:.filename}
 ``` c
 #include "simpletools.h"        // Simpletools contains a lot of useful functions
 
-void blinkLED1();               // Forward declaration 
+void blinkLED1();               // Forward declaration
 
 unsigned int stack[100];        // Stack in shared memory as user defined stack space
 

@@ -11,12 +11,16 @@ That is, the Rust [`never` type](https://doc.rust-lang.org/reference/types/never
 
 Rust is kind of an "everything is an expression" type of language. An expression is something that produces a value. Not everything is an expression, but basically everything that is in a Rust body (executable code) is an expression. Actually, one thing that isn't are locals, like:
 
+>
+{:.filename}
 ``` rust
 let x = 5;
 ```
 
 That is its own statement! But you can have an expression with a `let` statement, just take:
 
+>
+{:.filename}
 ``` rust
 
 if let Some(num) = func_that_returns_option() {}
@@ -26,14 +30,20 @@ The `let` statement in there isn't a local, it's a [`let` expression](https://do
 
 Let's go over a few other things that are also expressions:
 
+>
+{:.filename}
 ``` rust
 { 1 }
 ```
 
+>
+{:.filename}
 ``` rust
 loop { break 1; }
 ```
 
+>
+{:.filename}
 ``` rust
 if true { 1 } else { return; }
 ```
@@ -48,6 +58,8 @@ That's right, the `never` type!
 
 The point of the `never` type is to say "this computation will not complete." That way, if you assign something to that value:
 
+>
+{:.filename}
 ``` rust
 let x = if true { 1 } else { return; }
 ```
@@ -58,6 +70,8 @@ The type of `x` is based on the `if` block. But, that doesn't mean the `never` t
 
 Well, not much. It's mostly a fun compiler intricacy. But, if you want to see it mentioned in your diagnostics, try the new `let else` syntax (currently only available with nightly). This syntax lets you use a pattern for a `let` binding that may not always be true, like:
 
+>
+{:.filename}
 ``` rust
 let Ok(x) = returns_result() else { warn!("This is bad!"); return; };
 ```
@@ -68,6 +82,8 @@ The type of that `else` block has to be `never`, though.
 
 So try making it not, with this minimal example:
 
+> letelse.rs
+{:.filename}
 ``` rust
 #![feature(let_else)]
 
@@ -82,6 +98,8 @@ fn main() {
 
 This will error:
 
+>
+{:.shell}
 ``` rust
 error[E0308]: `else` clause of `let...else` does not diverge
  --> letelse.rs:7:30

@@ -21,8 +21,9 @@ So, how does TypeScript do it? It's a transpiler! You can just transpile your Ty
 
 So take this example in TypeScript, ruthlessly stolen from the [handbook](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) on everyday types:
 
+>test.js
+{:.filename}
 ``` ts
-// test.ts
 // Parameter type annotation
 function greet(name: string) {
   console.log("Hello, " + name.toUpperCase() + "!!");
@@ -31,8 +32,9 @@ function greet(name: string) {
 
 So we can see our `name` parameter has the type `string`. We can then compile this with `tsc test.ts` to get...
 
+>test.js
+{:.filename}
 ``` js
-// test.js
 // Parameter type annotation
 function greet(name) {
   console.log("Hello, " + name.toUpperCase() + "!!");
@@ -41,6 +43,8 @@ function greet(name) {
 
 ... The same thing without the type in `name`! Okay that's not interesting, but try adding a call like `greet(1);` and you'll see an error:
 
+>
+{:.shell}
 ``` bash
 test.ts:6:7 - error TS2345: Argument of type '1' is not assignable to parameter of type 'string'.
 
@@ -67,8 +71,9 @@ In fact, as stated on the CoffeeScript site, NodeJS can natively run CoffeeScrip
 
 Let's try an example:
 
+>test.nim
+{:.filename}
 ```
-// test.nim
 echo "Hello World!"
 ```
 
