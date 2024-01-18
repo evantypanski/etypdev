@@ -1,7 +1,6 @@
 ---
 ---
 
-@import "highlight.scss";
 @import "vars.scss";
 
 body {
@@ -13,6 +12,7 @@ body {
 }
 
 .sidebar {
+  margin: 0 1em;
   width: 20em;
   position: fixed;
   height: 100%;
@@ -21,9 +21,12 @@ body {
 }
 
 nav {
-  padding: 1em 0 0 0;
+  padding-top: 1em;
   font-size: 1.3em;
   width: auto;
+  h1 {
+    margin-right: 1em;
+  }
 
   a {
     margin: 0;
@@ -53,9 +56,7 @@ nav {
 }
 
 .content {
-  flex: 1;
-  margin-left: 20em;
-  padding: 0;
+  margin-left: 21em;
   max-width: 60%;
 }
 
@@ -73,8 +74,10 @@ h1 {
 }
 
 h2 {
-  font-family: $monospace-font-stack;
-  font-size: 1.3em;
+  font-size: 2em;
+  color: $accent-color;
+  margin-top: 2em;
+
 }
 
 .subtitle {
@@ -82,8 +85,9 @@ h2 {
 }
 
 h3 {
-  font-family: $monospace-font-stack;
-  font-size: 1.1em;
+  font-size: 1.5em;
+  color: $dark-red;
+  margin-top: 2em;
 }
 
 .monospace {
@@ -99,13 +103,11 @@ li, p {
   animation: blink .5s step-end infinite alternate;
   padding-right: 0.5em;
   border-right: 3px solid;
+  color: $text-color;
 }
 
 .content {
-  padding: 1em;
-  @include respond-to("small") {
-    padding: 3em;
-  }
+  padding: 3em;
 }
 
 .posts-list {
@@ -115,10 +117,7 @@ li, p {
 
   li:before {
     content: '>';
-    margin: 0;
-    @include respond-to("small") {
-      margin: 0 1em;
-    }
+    margin: 0 1em;
   }
   li {
     margin: 1em 0;
