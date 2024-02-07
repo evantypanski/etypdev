@@ -74,6 +74,7 @@ nav {
 
 .content {
   padding: 1em;
+  margin-bottom: 3em;
   @include respond-to("small") {
     margin-left: 21em;
     padding: 1em 3em;
