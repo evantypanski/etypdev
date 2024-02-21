@@ -58,6 +58,12 @@
       !-->
     </ul>
     </nav>
+    {% if page.toc %}
+    <div class="toc-block">
+      <h3> Table of Contents </h3>
+      {% toc %}
+    </div>
+    {% endif %}
   </div>
   <div class="content">
     {% if page.title %}

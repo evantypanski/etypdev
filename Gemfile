@@ -37,3 +37,5 @@ gem "webrick", "~> 1.7"
 gem "jekyll-assets", "~> 1.0"
 
 gem "kramdown-syntax_tree_sitter", "~> 0.5"
+
+gem "jekyll-toc", "~> 0.18.0"

@@ -39,6 +39,7 @@ include: ['_pages']
 plugins:
   - jekyll-feed
   - jekyll-assets
+  - jekyll-toc
   - kramdown/syntax_tree_sitter
 
 collections:
