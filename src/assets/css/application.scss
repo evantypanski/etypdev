@@ -182,3 +182,30 @@ img {
     height: 100%;
   }
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  th {
+    background-color: #272727;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid $accent-color;
+  }
+
+  tr {
+    background-color: $black;
+  }
+
+  tr:nth-child(even) {
+    background-color: $less-black;
+  }
+
+  td {
+    padding: 10px;
+    border-bottom: 1px solid $complement-color;
+  }
+}
