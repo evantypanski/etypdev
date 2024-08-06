@@ -1,7 +1,7 @@
 ---
 layout: barebones
 title: Arduino Demystified
-date: 2024-03-24
+date: 2024-03-26
 permalink: /posts/arduino-demystified/
 toc: true
 ---
