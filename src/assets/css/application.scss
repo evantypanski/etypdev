@@ -118,6 +118,11 @@ h3 {
   margin-top: 2em;
 }
 
+h4 {
+  font-size: 1.5em;
+  margin-top: 2em;
+}
+
 .monospace {
   font-family: $monospace-font-stack;
 }
@@ -169,10 +174,10 @@ blockquote {
 }
 
 img {
-  background: $almost-black;
   padding: 0.5em;
   border-radius: 1em;
   max-width: 90%;
+  display: block;
 }
 
 .toc-block {
