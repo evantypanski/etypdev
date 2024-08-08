@@ -414,4 +414,4 @@ So we created C++ code. Who cares? Why didn't we just write the C++ program? Wel
 
 With that being said, that's everything! You now should at least have a basis for doing some operations on your source code, eventually creating an intermediate representation that can be used. Congrats!
 
-[Onwards to part 3!](https://dev.to/evantypanski/writing-a-simple-programming-language-from-scratch-part-3-1d7l)
+[Onwards to part 3!](https://etyp.dev/posts/writing-a-simple-programming-language-p3/)

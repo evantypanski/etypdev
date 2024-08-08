@@ -279,7 +279,7 @@ I've put the source code on [my Github](https://github.com/evantypanski/ectlang)
 
 Given our lexer and parser, we can now generate an intermediate representation of our code that can be finally converted into real machine code, and I'll show you exactly how to do it.
 
-[Part 2 is up!](https://dev.to/evantypanski/writing-a-simple-programming-language-from-scratch-part-2-2522)
+[Part 2 is up!](https://etyp.dev/posts/writing-a-simple-programming-language-p2/)
 
 ### Additional Resources
 If you happen to want more info on anything covered here, I've linked some stuff to get started. I went right over a lot, so this is my chance to show you how to dive into those topics.
