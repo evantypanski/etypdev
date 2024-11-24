@@ -121,6 +121,7 @@ DEPENDENCIES
   jekyll (~> 4.3.3)
   jekyll-assets (~> 1.0)
   jekyll-feed (~> 0.12)
+  jekyll-seo-tag (~> 2.8)
   jekyll-toc (~> 0.18.0)
   kramdown-syntax_tree_sitter (~> 0.5)
   minima (~> 2.5)

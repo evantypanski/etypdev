@@ -5,3 +5,4 @@ _site
 deploy.sh
 vendor
 .bundle
+src/_drafts/

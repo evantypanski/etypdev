@@ -19,6 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Evan Typanski
+author: Evan Typanski
 email: etypdev@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Hi!
@@ -57,6 +58,10 @@ defaults:
 
 source: src
 encoding: UTF-8
+
+feed:
+  icon: /assets/favicons/favicon-arms.png
+  logo: /assets/favicons/favicon-arms.png
 
 
 # Exclude from processing.
