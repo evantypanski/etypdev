@@ -3,9 +3,10 @@ layout: barebones
 title: Writing a Simple Programming Language from Scratch - Part 2
 date: 2021-05-03
 permalink: /posts/writing-a-simple-programming-language-p2/
+series: Programming Language from Scratch
 ---
 
-[Part 1 found here!!](https://etyp.dev/posts/writing-a-simple-programming-language-p1/)
+{% include series.html %}
 
 Source code found [here](https://github.com/evantypanski/ectlang), for much easier running and compiling.
 

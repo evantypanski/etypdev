@@ -3,7 +3,10 @@ layout: barebones
 title: Writing a Simple Programming Language from Scratch - Part 1
 date: 2019-07-07
 permalink: /posts/writing-a-simple-programming-language-p1/
+series: Programming Language from Scratch
 ---
+
+{% include series.html %}
 
 If you're a developer, you've used programming languages. They're awesome ways to make a computer do what you want it to. Maybe you've even dove deep and programmed in assembly or machine code. Many never want to come back. But some wonder, how can I torture myself more by doing more low level programming? I want to know more about how programming languages are made! All joking aside, writing a new language isn't as bad as it sounds, so if you have even a mild curiosity, I would suggest you stick around and see what it's about.
 

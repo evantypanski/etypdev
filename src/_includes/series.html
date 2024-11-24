@@ -1,0 +1,15 @@
+<div class="series">
+  <h4> Read more in the "{{ page.series }}" series: </h4>
+  <ol>
+    {% assign series-posts = site.posts | reverse | where: 'series', page.series %}
+    {% for post in series-posts %}
+    <li>
+      {% if post.url == page.url %}
+      <strong>{{ post.title }}</strong>
+      {% else %}
+      <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</div>
