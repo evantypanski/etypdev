@@ -6,7 +6,7 @@ permalink: /posts/flipper-into-hardware-p1/
 series: Flipper into hardware
 ---
 
-{% include series.html incomplete=true %}
+{% include series.html %}
 
 {% include embed-audio.html src="/assets/audio/posts/flipper-into-hardware-p1/flipper-into-hardware-p1.mp3" title="Flipper your way into hardware p1" %}
 
